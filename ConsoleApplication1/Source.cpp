@@ -14,6 +14,7 @@ Lab #5
 #include<ctime>
 #include<cmath>
 #include<fstream>
+#include<cstring>
 using namespace std;
 
 /// Initialize function prototypes
@@ -58,6 +59,7 @@ void Navigation6(string entre);
 void Game5();
 void WritingGame();
 string Scanner(char input);
+char* StrChar(string stuff);
 void VowelGame();
 void LudumDare();
 void Navigation5(string exceed);
@@ -89,6 +91,9 @@ void GameHeader();
 void GameFooter();
 void Menu1(string nombre);
 string IsS(int things);
+void in(int &i);
+void in(float &fl);
+void in(double &db);
 void Game1();
 // End of foundation
 // Lab 2
@@ -761,7 +766,58 @@ void WritingGame() {
 }
 
 // Lab 6, Exercise 2
-void VowelGame() { ; }
+char* StrChar(string stuff) {
+	// Dynamically creates a char pointer that can fit the whole string
+	char* dyna = new char[stuff.length()];
+	// Assigns values to each index value
+	for (int i = 0; i < stuff.length(); i++) {
+		dyna[i] = stuff[i];
+	}
+	// Returns the address of the new pointer
+	return dyna;
+}
+
+// Foundation
+void LowerArray(char arr[], int length) {
+	for (int i = 0; i < length; i++) {
+		arr[i] = tolower(arr[i]);
+	}
+}
+
+// Lab 6, Exercise 2
+void VowelGame() {
+	string input;
+	int vowels = 0;
+	bool diagnostic = 1;
+	cout << "\nInput a string please.";
+	cin >> input;
+	// Saves the address of the new pointer
+	char* output = StrChar(input);
+
+	if (diagnostic) {
+		cout << "\nDiagnostics on...\n";
+		for (int i = 0; i < input.length(); i++)
+			cout << output[i];
+		cout << endl;
+	}
+
+	// Sets each character to lowercase
+	LowerArray(output, input.length());
+
+	if (diagnostic) {
+		for (int i = 0; i < input.length(); i++)
+			cout << output[i];
+		cout << endl;
+	}
+
+	// Checks for vowels within the array that is pointed
+	for (int i = 0; i < input.length(); i++) {
+		if (output[i] == 'a' || output[i] == 'e' || output[i] == 'i' || output[i] == 'o' || output[i] == 'u')
+			vowels++;
+	}
+
+	cout << "\nThere are a total of " << vowels << " vowel" << IsS(vowels) << "." << endl;
+}
 
 // Lab 6, Exercise 3
 void LudumDare() { ; }
@@ -1046,6 +1102,27 @@ string IsS(int things) {
 	if (things != 1)
 		return "s";
 	else return "";
+}
+
+void in(int &i) {
+	char temp[20];
+
+	std::cin.getline(temp, 20);
+	i = strtol(temp, 0, 10);
+}
+
+void in(float &fl) {
+	char temp[20];
+
+	std::cin.getline(temp, 20);
+	fl = strtof(temp, 0);
+}
+
+void in(double &db) {
+	char temp[20];
+
+	std::cin.getline(temp, 20);
+	db = strtod(temp, 0);
 }
 
 // Everything past Lab 1-4
