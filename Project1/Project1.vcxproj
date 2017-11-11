@@ -111,7 +111,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Checkers.cpp" />
     <ClCompile Include="ExaAnz.cpp" />
+    <ClCompile Include="Gamez.cpp" />
     <ClCompile Include="MoreNotes.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="ScannerExamples.cpp" />

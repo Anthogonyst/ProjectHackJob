@@ -14,6 +14,7 @@ Lab #5
 #include<ctime>
 #include<cmath>
 #include<fstream>
+#include<cstring>
 using namespace std;
 
 /// Initialize function prototypes
@@ -31,7 +32,7 @@ string Project8(string choice8);
 int ChooseLab(int lab);
 // Lab 8, DNE down
 void Game7();
-void ColumnSum(int third[3]);
+void ArrayColumnSum(double &array, int column, int row);
 void Ceiling();
 void AllElements();
 void FancyArrayGame();
@@ -60,7 +61,6 @@ void Navigation6(string entre);
 // Lab 6
 void Game5();
 void WritingGame();
-string Scanner(char input);
 void VowelGame();
 void LudumDare();
 void Navigation5(string exceed);
@@ -136,7 +136,7 @@ void Navigation3(string whimsy);
 void LetterPrinter(char last); // Unused, from codelab
 
 
-int main() {
+int maino() {
 	// Initialization
 	string name;			
 	string choice;
@@ -452,7 +452,6 @@ void Navigation(string choice, int &project) {
 }
 
 ///To do:
-//Lab 6, Exercise 2 - 3
 //Lab 7, Exercise 4
 //Lab 8, Exercise 1 - 4
 // Proper error handling try{ stuff; } catch (...) { throw x=0; cin.clear(); }
@@ -551,6 +550,7 @@ int ChooseLab(int lab) {
 
 /// Lab Eight TBA
 void Game7() { ; }
+
 void ArrayColumnSum(double &array, int column, int row) {
 	double total = 0;
 	double *arr;
@@ -748,6 +748,7 @@ void AlphaArrayGame() {
 	// Removes decimals
 	cout << setprecision(0) << '\n';
 
+	// Prints results
 	for (int l = 0; l < 5; l++) {
 		for (int m = 0; m < 9; m++) {
 			cout << alpha[10 * l + m] << '\t';
@@ -755,6 +756,7 @@ void AlphaArrayGame() {
 		cout << alpha[10 * l + 9] << '\n';
 	}
 
+	// Resets precision
 	cout << setprecision(2) << endl;
 }
 
@@ -828,12 +830,7 @@ void DealershipGame() {
 		<< "\nWe especially congratulate salesperson #" << myArray[0][mostsales] << " for his sale of " << myArray[1][mostsales] << " car" << IsS(myArray[1][mostsales]) << ".";
 }
 
-void Scanner(string code) {
-	// Get string's length
-	int len = code.length();
-
-}
-
+// Lab 7, Exercise 4
 void DeoxyribonucleicGame() {
 	// Initialization
 	string rna;
@@ -850,7 +847,7 @@ void DeoxyribonucleicGame() {
 	while (cin.get(c)) {  // Always reads whitespace chars.
 		//rna.append(static_cast(c));
 	}
-	
+	// Pending updates
 }
 
 // Game skeleton 6
@@ -866,12 +863,6 @@ void Navigation6(string entre) {
 
 	if (entre == "4")
 		DeoxyribonucleicGame();
-}
-
-void Er() {
-	cin.clear();
-	cout << "Error 7. Illegal input. Exitting...";
-	Err();
 }
 
 /// Lab Six
@@ -893,16 +884,79 @@ void WritingGame() {
 	numberfile.open("myEvenRandoms.txt");
 
 		do {
-		currentnumber = (rand() % 11 + 10);		// Makes a remainder of 0-10 + 10
-		if (currentnumber % 2 == 0)				// If even
-			numberfile << currentnumber << '\n';// Writes to file
-		} while (hellalot > 0, hellalot--);
+		// Chooses a number between 10 and 20
+		currentnumber = (rand() % 11 + 10);
+
+		// If even, writes number to file
+		if (currentnumber % 2 == 0) {
+			numberfile << currentnumber << '\n';
+			hellalot--;
+		}
+		} while (hellalot > 0);
 
 	cout << "\nDone writing numbers to file!\n" << endl;
 }
 
 // Lab 6, Exercise 2
-void VowelGame() { ; }
+char* StrChar(string stuff) {
+	// Dynamically creates a char pointer that can fit the whole string
+	char* dyna = new char[stuff.length()];
+	// Assigns values to each index value
+	for (int i = 0; i < stuff.length(); i++) {
+		dyna[i] = stuff[i];
+	}
+	// Returns the address of the new pointer
+	return dyna;
+}
+
+// Lab 6, Exercise 2
+void LowerArray(char arr[], int length) {
+	// Sets a character array to lowercase
+	for (int i = 0; i < length; i++) {
+		arr[i] = tolower(arr[i]);
+	}
+}
+
+// Lab 6, Exercise 2
+void VowelGame() {
+	string input;
+	int vowels = 0;
+	bool diagnostic = 0;
+
+	// Prompt
+	cout << "\nInput a string please.";
+	cin >> input;
+
+	// Creates and saves the address of the new pointer
+	char* output = StrChar(input);
+
+	// Shows string output
+	if (diagnostic) {
+		cout << "\nDiagnostics on...\n";
+		for (int i = 0; i < input.length(); i++)
+			cout << output[i];
+		cout << endl;
+	}
+
+	// Sets each character to lowercase
+	LowerArray(output, input.length());
+
+	// Shows string output with lowercase
+	if (diagnostic) {
+		for (int i = 0; i < input.length(); i++)
+			cout << output[i];
+		cout << endl;
+	}
+
+	// Checks for vowels within the array that is pointed
+	for (int i = 0; i < input.length(); i++) {
+		if (output[i] == 'a' || output[i] == 'e' || output[i] == 'i' || output[i] == 'o' || output[i] == 'u')
+			vowels++;
+	}
+
+	// Displays the total number of vowels
+	cout << "\nThere are a total of " << vowels << " vowel" << IsS(vowels) << "." << endl;
+}
 
 // Lab 6, Exercise 3
 void LudumDare() { ; }
@@ -928,16 +982,6 @@ void Game4() {
 		<< "3.\tCoin Flip\n"
 		<< "4.\tPsychic\n";
 	GameFooter();
-}
-
-// TBA
-#pragma warning(suppress: 4715)
-int Err() {				// Defunct?
-	if (!cin) {
-		cout << "Error 6. Illegal string. Exitting...";
-		cin.clear();
-		return 0;
-	}
 }
 
 // Lab 5, Exercise 1
@@ -1070,28 +1114,9 @@ void Psycho(int notaseed) {
 
 	while (predictions > 0) {
 
-		switch (notaseed) {
-		case 1: Say(1); break;
-		case 2: Say(2); break;
-		case 3: Say(3); break;
-		case 4: Say(4); break;
-		case 5: Say(5); break;
-		case 6: Say(6); break;
-		case 7: Say(7); break;
-		case 8: Say(8); break;
-		case 9: Say(9); break;
-		case 10: Say(10); break;
-		case 11: Say(11); break;
-		case 12: Say(12); break;
-		case 13: Say(13); break;
-		case 14: Say(14); break;
-		case 15: Say(15); break;
-		case 16: Say(16); break;
-		case 17: Say(17); break;
-		case 18: Say(18); break;
-		case 19: Say(19); break;
-		default: Say(0); break;
-		}
+		if (notaseed >= 1 || notaseed <= 19)
+			Say(notaseed);
+		else Say(0);
 
 		predictions--;
 		prev[predictions] = notaseed;
@@ -1105,7 +1130,7 @@ void Psycho(int notaseed) {
 // Lab 5, Exercise 4
 void Say(int words) {
 	string sayings[20] = {
-		//"\nLove", "\nSchool.", "\nFinance.", 
+		// Twenty unique fortunes
 		"\nA good day is coming your way.",
 		"\nYou'll find you're better showing than telling.", // Love
 		"\nAlways put in your all in anything you do.", // School
@@ -1126,6 +1151,8 @@ void Say(int words) {
 		"\nKeep your health good, it'll get you far.",
 		"\nMake your own fortune.",
 		"\nDon't sink to their level, be the bigger person." };
+
+	// Print out one fortune
 	cout << sayings[words];
 }
 
@@ -1189,6 +1216,22 @@ string IsS(int things) {
 	else return "";
 }
 
+void Er() {
+	cin.clear();
+	cout << "Error 7. Illegal input. Exitting...";
+	Err();
+}
+
+// TBA
+#pragma warning(suppress: 4715)
+int Err() {				// Defunct?
+	if (!cin) {
+		cout << "Error 6. Illegal string. Exitting...";
+		cin.clear();
+		return 0;
+	}
+}
+
 // All in() functions cause undefined behavior in C++17 compiler.
 // Works fine in C++11 compiler, possibly with consequences?
 // http://www.augustcouncil.com/~tgibson/tutorial/iotips.html
@@ -1202,7 +1245,7 @@ void in(int &i) {
 void in(float &fl) {
 	char temp[20];
 
-	std::cin.std::getline(temp, 20);
+	std::cin.getline(temp, 20);
 	fl = strtof(temp, 0);
 }
 
