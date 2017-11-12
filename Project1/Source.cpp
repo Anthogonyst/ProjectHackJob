@@ -55,14 +55,21 @@ void AlphaArrayGame();
 void filterEvens(int arrayelement);
 void ArraySorterGame();
 void DealershipGame();
+void UpperArray(char arr[], int length);
 void DeoxyribonucleicGame();
 void Navigation6(string entre);
 // End of lab 7
 // Lab 6
 void Game5();
 void WritingGame();
+char* StrChar(string stuff);
+void LowerArray(char arr[], int length);
 void VowelGame();
 void LudumDare();
+const int row = 8;
+const int element = 4;
+void PrintBoard(int *display[row][row], string(&part)[11]);
+void PrintBoard(int *display[row][row], string(&part)[11], string player);
 void Navigation5(string exceed);
 // End of lab 6
 // Lab 5
@@ -136,7 +143,7 @@ void Navigation3(string whimsy);
 void LetterPrinter(char last); // Unused, from codelab
 
 
-int maino() {
+int main() {
 	// Initialization
 	string name;			
 	string choice;
@@ -209,6 +216,11 @@ menu:					// For backtracking when exiting
 
 		int loka = 10;
 		do { cout << (rand()) << '\n'; } while (loka--, loka > 0);
+		char f[2]; 
+		char s[2];
+		cin.getline(f, 2);
+		cin.getline(s, 2);
+		cout << f << '\n' << s;
 
 		// Demo finished, goes to main menu
 		goto menu;					
@@ -756,6 +768,9 @@ void AlphaArrayGame() {
 		cout << alpha[10 * l + 9] << '\n';
 	}
 
+	// Error checking
+	Er();
+
 	// Resets precision
 	cout << setprecision(2) << endl;
 }
@@ -789,8 +804,9 @@ void ArraySorterGame() {
 	for (int i = 0; i < 8; i++)
 		filterEvens(myArray[i]);
 	cout << endl;
-	// End
-
+	
+	// Error checking
+	Er();
 }
 
 // Lab 7, Exercise 3
@@ -828,26 +844,68 @@ void DealershipGame() {
 	// Print
 	cout << "\nWe sold a total of " << total << " car" << IsS(total) << "."
 		<< "\nWe especially congratulate salesperson #" << myArray[0][mostsales] << " for his sale of " << myArray[1][mostsales] << " car" << IsS(myArray[1][mostsales]) << ".";
+
+	// Error checking
+	Er();
+}
+
+// Lab 7, Exercise 4
+void UpperArray(char arr[], int length) {
+	// Sets a character array to lowercase
+	for (int i = 0; i < length; i++) {
+		arr[i] = toupper(arr[i]);
+	}
 }
 
 // Lab 7, Exercise 4
 void DeoxyribonucleicGame() {
 	// Initialization
-	string rna;
-	int len;
+	string dna;
 
 	// Prompt
 	cout << "\nPlease enter a RNA strand's code.";
-	//cin >> rna;
+	cin >> dna;
 
-	// Translation
-	//Scanner(rna);
-	int count = 0;
-	char c;
-	while (cin.get(c)) {  // Always reads whitespace chars.
-		//rna.append(static_cast(c));
+	// Creates and saves the address of the new pointer
+	char* rna = StrChar(dna);
+
+	// Shows string output
+	if (1) {
+		cout << "\nDiagnostics on...\n";
+		for (int i = 0; i < dna.length(); i++)
+			cout << rna[i];
+		cout << endl;
 	}
-	// Pending updates
+
+	// Sets each character to uppercase
+	UpperArray(rna, dna.length());
+
+	// Shows string output with lowercase
+	if (1) {
+		for (int i = 0; i < dna.length(); i++)
+			cout << rna[i];
+		cout << endl;
+	}
+
+	// Checks for vowels within the array that is pointed
+	for (int i = 0; i < dna.length(); i++) {
+		switch (rna[i]) {
+		case 65: rna[i] = 'U'; break;
+		case 67: rna[i] = 'G'; break;
+		case 71: rna[i] = 'C'; break;
+		case 84: rna[i] = 'A'; break;
+		default: break;
+		}
+	}
+
+	// Shows string output with lowercase
+	for (int i = 0; i < dna.length(); i++)
+		cout << rna[i];
+	cout << endl;
+	
+
+	// Error checking
+	Er();
 }
 
 // Game skeleton 6
@@ -959,7 +1017,135 @@ void VowelGame() {
 }
 
 // Lab 6, Exercise 3
-void LudumDare() { ; }
+void LudumDare() {
+	bool diagnostic = 0; bool yes = 0; bool normal = 1;
+	string parts[11] = { " ", " X", " O", " x", " o", ">X", ">O", ">x", ">o", "---", " |" };
+
+	int null = 0;
+	string pause;
+
+	int *displayboard[row][row];
+	int board[row][element];
+
+	cout << "\nBeginning checkers game. Initializing...\n";
+
+	// Initialize display board with board addresses
+	for (int i = 0; i < row; i++) {
+		if (i % 2) {
+			for (int j = 0; j < row; j += 2) {
+				displayboard[i][j] = &board[i][j / 2];
+			}
+			for (int k = 1; k < row; k += 2) {
+				displayboard[i][k] = &null;
+			}
+		}
+		else {
+			for (int k = 0; k < row; k += 2) {
+				displayboard[i][k] = &null;
+			}
+			for (int j = 1; j < row; j += 2) {
+				displayboard[i][j] = &board[i][j / 2];
+			}
+		}
+	}
+
+	// Initialize data board with normal checker setup
+	if (normal) {
+		int i = 0;
+		for (i; i < 3; i++) {
+			for (int j = 0; j < element; j++) {
+				board[i][j] = 1;
+			}
+		}
+		for (i; i < 5; i++) {
+			for (int j = 0; j < element; j++) {
+				board[i][j] = 0;
+			}
+		}
+		for (i; i < 8; i++) {
+			for (int j = 0; j < element; j++) {
+				board[i][j] = 2;
+			}
+		}
+	}
+
+	// Initalizes entire board with ones
+	/*if (yes)
+	for (int i = 0; i < row; i++) {
+	for (int j = 0; j < element; j++) {
+	board[i][j] = 1;
+	}
+	}*/
+
+	PrintBoard(displayboard, parts);
+
+	cout << "Logic and player input pending.";
+
+	//Alternate player
+	//Recieve input as d5 a1
+	//Logic circuit and movement
+	cin >> pause;
+}
+
+void PrintBoardRaw(int *display[row][row]) {
+	// Prints raw result
+	for (int i = 0; i < row; i++) {
+		for (int j = 0; j < row; j++) {
+			cout << *display[i][j] << ' ';
+		}
+		cout << '\n';
+	}
+}
+
+void PrintBoard(int *display[row][row], string(&part)[11]) {
+	string noname = "\b";
+	PrintBoard(display, part, noname);
+}
+
+void PrintBoard(int *display[row][row], string(&part)[11], string player) {
+	//string part[11] = { " ", " X ", " O ", " x ", " o ", ">X ", ">O ", ">x ", ">o ", "---", "|" };
+	int counter = 0;
+	char letter = 'A';
+
+	// Draws upper edge
+	cout << "\n\n" << setw(2) << part[0];
+	for (int h = 0; h < row; h++)
+		cout << setw(4) << h + 1;
+	cout << endl << setw(3) << part[0];
+	for (int i = 0; i < row; i++)
+		cout << setw(4) << part[9];
+	cout << endl;
+
+	// Draws the rest of the board
+	for (int j = 0; j < row; j++) {
+		// Draws the upper space
+		cout << setw(2) << part[0];
+		for (int l = 0; l < row; l++)
+			cout << setw(2) << part[10] << setw(2) << part[0];
+		cout << setw(1) << part[10] << endl;
+
+		// Draws the middle space
+		cout << setw(1) << part[0] << letter++;
+		for (int k = 0; k < row; k++) {
+			cout << setw(1) << part[10] << setw(2) << part[*display[counter][k]];
+		}
+		counter++;
+		cout << setw(1) << part[10] << endl;
+
+		// Draws the lower space
+		cout << setw(2) << part[0];
+		for (int m = 0; m < row; m++)
+			cout << setw(2) << part[10] << setw(2) << part[0];
+		cout << setw(1) << part[10] << endl;
+
+		// Draws bottom edge
+		cout << setw(3) << part[0];
+		for (int i = 0; i < row; i++)
+			cout << setw(4) << part[9];
+		cout << endl;
+	}
+	cout << "\n  Please enter your next move, Player " << player << ".  ";
+}
 
 // Game skeleton 5
 void Navigation5(string exceed) {
