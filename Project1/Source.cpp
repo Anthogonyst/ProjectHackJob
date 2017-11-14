@@ -152,7 +152,7 @@ int main() {
 
 	// Queries name
 	cout << "Please enter your name.";
-	cin >> name;			
+	cin >> name;
 
 menu:					// For backtracking when exiting
 	Menu1(name);			// Creates main menu text
@@ -677,7 +677,19 @@ void TicTacToeGame() {
 	}
 }
 
-void Navigation7(string final) { ; }
+void Navigation7(string final) {
+	if (final == "1")
+		FancyArrayGame();
+
+	if (final == "2")
+		AirplaneGame();
+
+	if (final == "3")
+		HardwareGame();
+
+	if (final == "4")
+		TicTacToeGame();
+}
 
 void Game8() {
 	GameHeader();
@@ -702,7 +714,7 @@ void Navigation8(string finale) {
 	if (finale == "4")
 		PsychicGame();
 
-	if (finale == "4")
+	if (finale == "5")
 		TicTacToeGame();
 }
 
@@ -843,7 +855,7 @@ void DealershipGame() {
 
 	// Print
 	cout << "\nWe sold a total of " << total << " car" << IsS(total) << "."
-		<< "\nWe especially congratulate salesperson #" << myArray[0][mostsales] << " for his sale of " << myArray[1][mostsales] << " car" << IsS(myArray[1][mostsales]) << ".";
+		<< "\nWe especially congratulate salesperson #" << myArray[0][mostsales] << " for his sale of " << myArray[1][mostsales] << " car" << IsS(myArray[1][mostsales]) << "." << endl;
 
 	// Error checking
 	Er();
@@ -861,48 +873,69 @@ void UpperArray(char arr[], int length) {
 void DeoxyribonucleicGame() {
 	// Initialization
 	string dna;
+	int strand; int relevant;
+	bool show = 1;
 
 	// Prompt
 	cout << "\nPlease enter a RNA strand's code.";
 	cin >> dna;
 
+	// Saves the length of the string
+	strand = dna.length();
+	relevant = strand;
+
 	// Creates and saves the address of the new pointer
 	char* rna = StrChar(dna);
 
-	// Shows string output
-	if (1) {
-		cout << "\nDiagnostics on...\n";
-		for (int i = 0; i < dna.length(); i++)
-			cout << rna[i];
-		cout << endl;
-	}
-
 	// Sets each character to uppercase
-	UpperArray(rna, dna.length());
-
-	// Shows string output with lowercase
-	if (1) {
-		for (int i = 0; i < dna.length(); i++)
-			cout << rna[i];
-		cout << endl;
-	}
+	UpperArray(rna, strand);
 
 	// Checks for vowels within the array that is pointed
-	for (int i = 0; i < dna.length(); i++) {
+	for (int i = 0; i < strand; i++) {
 		switch (rna[i]) {
 		case 65: rna[i] = 'U'; break;
 		case 67: rna[i] = 'G'; break;
 		case 71: rna[i] = 'C'; break;
 		case 84: rna[i] = 'A'; break;
+			// If not a vowel, sets to nil character
+		default: rna[i] = '-'; 
+			relevant--;
+			break;
+		}
+	}
+
+	// Allocates a character array with the relevant RNA pieces
+	char* mrna = new char[strand];
+	
+	// Fills the new character array
+	int counter = 0;
+	for (int i = 0; i < strand; i++) {
+		switch (rna[i]) {
+		case 65:
+		case 67:
+		case 71:
+		case 85: mrna[counter] = rna[i];
+			counter++;
+			break;
 		default: break;
 		}
 	}
 
-	// Shows string output with lowercase
-	for (int i = 0; i < dna.length(); i++)
-		cout << rna[i];
-	cout << endl;
-	
+	// Displays the DNA string
+	if (show) {
+		cout << "\nThis is the DNA string inputted: ";
+		for (int i = 0; i < strand; i++)
+			cout << rna[i];
+		cout << endl;
+	}
+
+	// Displays the RNA string
+	if (show) {
+		cout << "\nThis is the RNA string outputted: ";
+		for (int i = 0; i < relevant; i++)
+			cout << mrna[i];
+		cout << endl;
+	}
 
 	// Error checking
 	Er();
@@ -960,7 +993,7 @@ char* StrChar(string stuff) {
 	// Dynamically creates a char pointer that can fit the whole string
 	char* dyna = new char[stuff.length()];
 	// Assigns values to each index value
-	for (int i = 0; i < stuff.length(); i++) {
+	for (unsigned int i = 0; i < stuff.length(); i++) {
 		dyna[i] = stuff[i];
 	}
 	// Returns the address of the new pointer
@@ -985,29 +1018,32 @@ void VowelGame() {
 	cout << "\nInput a string please.";
 	cin >> input;
 
+	// Saves the length of the string
+	int len = input.length();
+
 	// Creates and saves the address of the new pointer
 	char* output = StrChar(input);
 
 	// Shows string output
 	if (diagnostic) {
 		cout << "\nDiagnostics on...\n";
-		for (int i = 0; i < input.length(); i++)
+		for (int i = 0; i < len; i++)
 			cout << output[i];
 		cout << endl;
 	}
 
 	// Sets each character to lowercase
-	LowerArray(output, input.length());
+	LowerArray(output, len);
 
 	// Shows string output with lowercase
 	if (diagnostic) {
-		for (int i = 0; i < input.length(); i++)
+		for (int i = 0; i < len; i++)
 			cout << output[i];
 		cout << endl;
 	}
 
 	// Checks for vowels within the array that is pointed
-	for (int i = 0; i < input.length(); i++) {
+	for (int i = 0; i < len; i++) {
 		if (output[i] == 'a' || output[i] == 'e' || output[i] == 'i' || output[i] == 'o' || output[i] == 'u')
 			vowels++;
 	}
@@ -1181,9 +1217,9 @@ void DistanceGame() {
 
 	r = Radius(x1, y1, x2, y2);
 
-	cout << "The radius is: " << r;
-	cout << "The circumference is: " << Circumference(r);
-	cout << "The area is: " << Area(r);
+	cout << "\nThe radius is: " << r;
+	cout << "\nThe circumference is: " << Circumference(r);
+	cout << "\nThe area is: " << Area(r);
 }
 
 // Lab 5, Exercise 1
@@ -1403,8 +1439,9 @@ string IsS(int things) {
 }
 
 void Er() {
-	cin.clear();
+	if (!cin)
 	cout << "Error 7. Illegal input. Exitting...";
+	cin.clear();
 	Err();
 }
 
@@ -1424,12 +1461,16 @@ int Err() {				// Defunct?
 void in(int &i) {
 	char temp[20];
 
-	std::cin.getline(temp, 20);
+	using std::getline;
+
+	cin.getline(temp, 20);
 	i = strtol(temp, 0, 10);
 }
 
 void in(float &fl) {
 	char temp[20];
+	
+	using std::getline;
 
 	std::cin.getline(temp, 20);
 	fl = strtof(temp, 0);
@@ -1437,6 +1478,8 @@ void in(float &fl) {
 
 void in(double &db) {
 	char temp[20];
+
+	using std::getline;
 
 	std::cin.getline(temp, 20);
 	db = strtod(temp, 0);
