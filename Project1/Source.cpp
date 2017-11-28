@@ -1,10 +1,12 @@
 ﻿/*
 Anthony Arroyo
 Computer Science 126
-September 18, 2017
+November 22, 2017
 Professor Zelikovitz
 Professor Domanski
-Lab #5
+Lab #6
+
+Compiled on C++17
 */
 
 #include<iostream>
@@ -32,9 +34,9 @@ string Project8(string choice8);
 int ChooseLab(int lab);
 // Lab 8, DNE down
 void Game7();
-void ArrayColumnSum(double &array, int column, int row);
-void Ceiling();
-void AllElements();
+double Array4ColumnSum(double areray[][4], int row, int column);
+void CeilingArray4(double arrae[][4], int row, int column);
+void All4Elements(double ahray[][4], int row, int column);
 void FancyArrayGame();
 void AirplaneGame();
 void HardwareGame();
@@ -151,14 +153,18 @@ int main() {
 	cout << fixed << setprecision(2);
 
 	// Queries name
-	cout << "Please enter your name.";
+	cout << "Please enter your name. ";
 	cin >> name;
 
-menu:					// For backtracking when exiting
-	Menu1(name);			// Creates main menu text
-	cin >> choice;			// Navigates main menu
+// For backtracking when exiting
+menu:
+	// Creates main menu text
+	Menu1(name);
+	// Navigates main menu
+	cin >> choice;
 
-	if (choice == "1") {				// Play
+	// Play
+	if (choice == "1") {
 
 		// For backtracking when quitting
 		game:
@@ -244,6 +250,7 @@ menu:					// For backtracking when exiting
 	goto menu;
 }
 
+// Old error list
 // Error # (D) == Debugged; (F) == Fatal;
 // Error 1 (D) = Choice selected in game 1 does not equal a number;
 // Error 2 = Choice selected in menu 1 does not equal a number; name has a space; program crash;
@@ -252,185 +259,6 @@ menu:					// For backtracking when exiting
 // Error 5 = Message not printed; previous input was a string;
 // Error 6 = Special character entered.
 // Error 7 = Caught by error handler. Er()
-
-/*int SuperMenu() {
-	// Initialization
-	string name;
-	string choice;
-	int project = 6;
-	bool menu = 1; bool game = 1;
-	cout << fixed << setprecision(2);
-
-	// Queries name
-	cout << "Please enter your name.";
-	cin >> name;
-
-	while (menu) {
-		// Creates main menu text
-		Menu1(name);
-		// Navigates main menu
-		cin >> choice;
-
-		// Play
-		if (choice == "1") {
-			// Repeats until exit trigger
-			while (game) {
-				switch (project) {
-				// Chooses navigation depending on project
-				case 1: choice = Project1(choice);
-					continue;
-				case 2: choice = Project2(choice);
-					continue;
-				case 3: choice = Project3(choice);
-					continue;
-				case 4: choice = Project4(choice);
-					continue;
-				case 5: choice = Project5(choice);
-					continue;
-				case 6: choice = Project6(choice);
-					continue;
-				case 7: choice = Project7(choice);
-					continue;
-				case 8: choice = Project8(choice);
-					continue;
-				case 9: cout << "Quitting to menu." << endl;
-					game = 0;
-					break;
-				default: cout << "Error 1.";	// Bug patched
-					break;
-				}
-				// Error checking
-				if (!cin) {
-					cout << "Error 6. Illegal string. Exitting...";
-					cin.clear();
-					return 1;
-				}
-				// Prints finished when game is done
-				cout << "Finished." << endl;
-			}
-		}
-
-		// Demo
-		if (choice == "2") {
-			// Will mostly be for development purposes or pre-defined answers.
-			Demo1();
-
-			cout << "b." << '\n';
-			cout << "lib." + static_cast<char>(2) << '\n'; // b.
-			cout << pi * 6;
-			double kay = Circumference(6.);
-			cout << kay;
-			int loka = 10;
-			do { cout << (rand()) << '\n'; } while (loka--, loka > 0);
-		}
-
-		// Switches projects
-		if (choice == "3") {
-			project = ChooseLab(project);
-		}
-
-		// Exits program
-		if (choice == "4") {
-			cout << "Exiting...";
-			// Unnecessary until new menu is added
-			menu = 0;
-			return 0;
-		}
-
-		// New game
-		game = 1;
-
-		// Error checking
-		if (!cin)
-			cin.clear();
-		else cout << "Error 2. Multiple strings.";	// To-do debug
-		Err();	// Defunct
-	}
-}*/
-
-/*
-int SuperMenu() {
-	// Initialization
-	string name;
-	int choice;
-	int project = 6;
-	bool menu = 1; bool game = 1;
-	cout << fixed << setprecision(2);
-
-	// Queries name
-	cout << "Please enter your name.";
-	cin >> name;
-
-	while (menu) {
-		// Creates main menu text
-		Menu1(name);
-		// Navigates main menu
-		in(choice);
-
-		// Play
-		if (choice = 1) {
-			// Repeats until exit trigger
-			while (game) {
-				switch (project) {
-					// Chooses navigation depending on project
-				case 1:
-				case 2:
-				case 3:
-				case 4:
-				case 5:
-				case 6:
-				case 7:
-				case 8: Project(project, choice); break;
-				case 9: cout << "Quitting to menu. " << endl;
-					game = 0;
-					break;
-				default: cout << "Error 1.";	// Bug patched
-					break;
-				}
-				// Error checking
-				Er();
-				// Prints finished when game is done
-				cout << "Finished." << endl;
-			}
-		}
-
-		// Demo
-		if (choice = 2) {
-			// Will mostly be for development purposes or pre-defined answers.
-			Demo1();
-
-			cout << "b." << '\n';
-			cout << "lib." + static_cast<char>(2) << '\n'; // b.
-			cout << pi * 6;
-			double kay = Circumference(6.);
-			cout << kay;
-			int loka = 10;
-			do { cout << (rand()) << '\n'; } while (loka--, loka > 0);
-		}
-
-		// Switches projects
-		if (choice = 3) {
-			project = ChooseLab(project);
-		}
-
-		// Exits program
-		if (choice = 4) {
-			cout << "Exiting...";
-			// Unnecessary until new menu is added
-			menu = 0;
-			return 0;
-		}
-
-		// New game
-		game = 1;
-
-		// Error checking
-		Er();
-	}
-	// Menu disabled
-	return 0;
-}
-*/
 
 void Project(int choice, int &project) {
 	// Prints out game menu
@@ -464,8 +292,7 @@ void Navigation(string choice, int &project) {
 }
 
 ///To do:
-//Lab 7, Exercise 4
-//Lab 8, Exercise 1 - 4
+//Lab 8, Exercise 2 - 4
 // Proper error handling try{ stuff; } catch (...) { throw x=0; cin.clear(); }
 
 string Project1(string choice1) {
@@ -560,35 +387,148 @@ int ChooseLab(int lab) {
 	}
 }
 
-/// Lab Eight TBA
-void Game7() { ; }
+/// Lab Eight
+void Game7() {
+	GameHeader();
+	cout << "1.\tArray Arithmetic\n"
+		<< "2.\tAirplace Reservations\n"
+		<< "3.\tHardware Store\n"
+		<< "4.\tTic Tac Toe\n";
+	GameFooter();
+}
 
-void ArrayColumnSum(double &array, int column, int row) {
+double Array4ColumnSum(double areray[][4], int row, int column) {
 	double total = 0;
-	double *arr;
-	//arr = array[column][row];
-	column--;
+	for (int i = 0; i < row; i++)
+		total += areray[i][column - 1];
+	return total;
+}
 
-	for (column; column > 0; column--) {
-		;//total += **array[column][row];
+void CeilingArray4(double arrae[][4], int row, int column) {
+	for (int i = 0; i < row; i++)
+		for (int j = 0; j < column; j++)
+			arrae[i][j] = ceil(arrae[i][j]);
+}
+
+void All4Elements(double ahray[][4], int row, int column) {
+	cout << setprecision(0) << "\nThe elements in the array are now: \n";
+	for (int i = 0; i < row; i++) {
+		for (int j = 0; j < column; j++)
+			cout << ahray[i][j] << ' ';
+		cout << '\n';
+	}
+	cout << setprecision(2) << "\nDone!" << endl;
+}
+
+void FancyArrayGame() {
+	const int rows = 3;
+	const int columns = 4;
+	double sum;
+
+	double myFancyArray[rows][columns] = {
+		{ 23, 14.12, 17, 85.99 },
+		{ 6.06, 13, 1100, 0 },
+		{ 36.36, 90.09, 3.145, 5.4 } };
+
+	sum = Array4ColumnSum(myFancyArray, rows, 3);
+	cout << "\nThe sum of the third column is: " << sum << ".";
+	CeilingArray4(myFancyArray, rows, columns);
+	cout << "\nRounding array values...";
+	All4Elements(myFancyArray, rows, columns);
+}
+
+class Airplane {
+public:
+	void DisplayMap();
+	void MakeReservation();
+	void ValidateFunction();
+	void RefreshSeats();
+	Airplane();
+	Airplane(int, int);
+	~Airplane();
+private:
+	int row = 13;
+	int seat = 6;
+	int seats[13][6];
+	bool custom = 0;
+};
+
+Airplane::Airplane() {
+	for (int i = 0; i < row; i++)
+		for (int j = 0; j < seat; j++)
+			seats[i][j] = 42;
+}
+
+Airplane::Airplane(int r, int s) {
+	// Defunct; corrupts stack and unable to deallocate
+	row = r;
+	seat = s;
+	seats[r][s];
+	custom = 1;
+
+	for (int i = 0; i < r; i++)
+		for (int j = 0; j < s; j++)
+			seats[i][j] = 43;
+
+	/*
+	https://stackoverflow.com/questions/25517847/whats-the-proper-way-to-call-a-destructor-when-you-have-a-two-dimensional-array
+	{
+	elements = new int*[rows];
+	for (int x = 0; x < rows; x++)
+	{
+	elements[x] = new int[columns];
+	}
+	}
+	*/
+
+}
+
+Airplane::~Airplane() {
+	if (custom) {
+		;/*for (int i = 0; i < row; i++) {
+		 for (int j = 0; j < seat; j++)
+		 delete[] seats[i];
+		 }
+		 delete[] seats;
+		 }*/
 	}
 }
 
-void Ceiling() { ; }
-void AllElements() { ; }
+void Airplane::DisplayMap() {
+	cout << setw(8) << "\nThe seating chart is as follows:\n" << '\t' << 'A' << 'B' << 'C' << 'D' << 'E' << 'F';
+	for (int i = 0; i < row; i++) {
+		cout << setw(5) << "\nRow " << setw(3) << (i + 1);
+		for (int j = 0; j < seat; j++)
+			cout << setw(8) << static_cast<char>(seats[i][j]);
+	}
+	cout << endl;
+}
 
-void FancyArrayGame() {
-	const int column = 3;
-	const int row = 4;
+void Airplane::MakeReservation() {
+	;
+}
 
-	double myFancyArray[column][row] = { 
-		{23, 14.12, 17, 85.99},
-		{6.06, 13, 1100, 0},
-		{36.36, 90.09, 3.145, 5.4} };
+void Airplane::ValidateFunction() {
+	;
+}
+
+void Airplane::RefreshSeats() {
+	// Randomly fills about half of the empty seats
+	// Empty = 42; Taken = 88
+	for (int i = 0; i < row; i++)
+		for (int j = 0; j < seat; j++)
+			seats[i][j] = (seats[i][j] % 8) * -23 * (rand() % 2) + 88;
+}
+
+void AirplaneGame() {
+	// Creates an airplane
+	Airplane Boeing_747;
+	//Airplane F(17, 2);
+	Boeing_747.DisplayMap();
+	//F.DisplayMap();
 
 }
 
-void AirplaneGame() { ; }
 void HardwareGame() { ; }
 
 //initChessBoard
@@ -739,7 +679,7 @@ void Reader() {
 	inFile.open("sample.txt");
 	outFile.open("output.txt");
 
-	//cin >> letter;
+	//inFile >> letter;
 
 	for (int i = 0; i < 6; i++) {
 		cin.get(letter);
@@ -811,7 +751,7 @@ void ArraySorterGame() {
 		}
 	}
 
-	cout << '\n';
+	cout << "\nThe even numbers present are: ";
 	// Filter even numbers
 	for (int i = 0; i < 8; i++)
 		filterEvens(myArray[i]);
@@ -893,6 +833,7 @@ void DeoxyribonucleicGame() {
 	// Checks for vowels within the array that is pointed
 	for (int i = 0; i < strand; i++) {
 		switch (rna[i]) {
+		case 45: break;
 		case 65: rna[i] = 'U'; break;
 		case 67: rna[i] = 'G'; break;
 		case 71: rna[i] = 'C'; break;
@@ -906,7 +847,7 @@ void DeoxyribonucleicGame() {
 
 	// Allocates a character array with the relevant RNA pieces
 	char* mrna = new char[strand];
-	
+
 	// Fills the new character array
 	int counter = 0;
 	for (int i = 0; i < strand; i++) {
@@ -936,6 +877,9 @@ void DeoxyribonucleicGame() {
 			cout << mrna[i];
 		cout << endl;
 	}
+
+	// De-allocates dynamic memory
+	delete[] mrna;
 
 	// Error checking
 	Er();
@@ -979,11 +923,14 @@ void WritingGame() {
 		currentnumber = (rand() % 11 + 10);
 
 		// If even, writes number to file
-		if (currentnumber % 2 == 0) {
+		if (currentnumber % 2 == 0)
 			numberfile << currentnumber << '\n';
-			hellalot--;
-		}
+
+		// Increments counter
+		hellalot--;
 		} while (hellalot > 0);
+
+	numberfile.close();
 
 	cout << "\nDone writing numbers to file!\n" << endl;
 }
@@ -1115,7 +1062,7 @@ void LudumDare() {
 
 	PrintBoard(displayboard, parts);
 
-	cout << "Logic and player input pending.";
+	cout << "\nLogic and player input pending.";
 
 	//Alternate player
 	//Recieve input as d5 a1
@@ -1448,6 +1395,7 @@ void Er() {
 // TBA
 #pragma warning(suppress: 4715)
 int Err() {				// Defunct?
+	cin.ignore();
 	if (!cin) {
 		cout << "Error 6. Illegal string. Exitting...";
 		cin.clear();
@@ -1461,7 +1409,7 @@ int Err() {				// Defunct?
 void in(int &i) {
 	char temp[20];
 
-	using std::getline;
+	cin.ignore();
 
 	cin.getline(temp, 20);
 	i = strtol(temp, 0, 10);
@@ -1470,18 +1418,18 @@ void in(int &i) {
 void in(float &fl) {
 	char temp[20];
 	
-	using std::getline;
+	cin.ignore();
 
-	std::cin.getline(temp, 20);
+	cin.getline(temp, 20);
 	fl = strtof(temp, 0);
 }
 
 void in(double &db) {
 	char temp[20];
 
-	using std::getline;
+	cin.ignore();
 
-	std::cin.getline(temp, 20);
+	cin.getline(temp, 20);
 	db = strtod(temp, 0);
 }
 
