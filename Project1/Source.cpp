@@ -356,10 +356,10 @@ int ChooseLab(int lab) {
 	int master = 0;
 
 	do {
-		cout << "\nChoose which lab you want to open. (2-7, cancel with 0)\n";
+		cout << "\nChoose which lab you want to open. (2-9, cancel with 0)\n";
 		cin >> lab;
 
-		if (lab >= 0 && lab <= 7) {
+		if (lab >= 0 && lab <= 9) {
 			if (lab == 1)
 				cout << "\nLab 1 was not a program.";
 			else master = 1;
@@ -495,7 +495,7 @@ Airplane::~Airplane() {
 }
 
 void Airplane::DisplayMap() {
-	cout << setw(8) << "\nThe seating chart is as follows:\n" << '\t' << 'A' << 'B' << 'C' << 'D' << 'E' << 'F';
+	cout << "\nThe seating chart is as follows:\n" << setw(8) << '\t' << 'A' << 'B' << 'C' << 'D' << 'E' << 'F';
 	for (int i = 0; i < row; i++) {
 		cout << setw(5) << "\nRow " << setw(3) << (i + 1);
 		for (int j = 0; j < seat; j++)
